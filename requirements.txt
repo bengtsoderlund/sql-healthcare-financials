@@ -1,0 +1,4 @@
+# Manually corrected: pipreqs output was 'Requests' (capital R)
+pandas==2.2.3
+python-dotenv==1.1.0
+requests==2.32.3

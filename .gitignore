@@ -1,0 +1,5 @@
+.env
+/results/*
+!/results/.gitkeep
+/figures/*
+!/figures/.gitkeep
