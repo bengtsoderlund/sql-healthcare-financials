@@ -8,7 +8,7 @@ import sys
 
 
 #==================================================
-#            FETCH COMPANY OVERVIEW
+#            FETCH COMPANY OVERVIEWS
 #==================================================
 
 # Set project root directory dynamically

@@ -25,7 +25,8 @@ csv_table_pairs = [
     ("annual_earnings.csv", "annual_earnings"),
     ("quarterly_earnings.csv", "quarterly_earnings"),
     ("income_statements.csv", "income_statements"),
-    ("balance_sheets.csv", "balance_sheets")
+    ("balance_sheets.csv", "balance_sheets"),
+    ("company_overviews.csv", "company_overviews")
 ]
 
 # === Clean up potential lingering connections ===

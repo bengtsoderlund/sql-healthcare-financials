@@ -1,8 +1,7 @@
--- Computes earnings surprise and the corresponding 5-day stock return  
--- for all quarterly reports since 2018.  
--- Surprise is calculated as the percent difference between reported and estimated EPS.  
--- Stock return reflects the percentage change in closing price from the report date  
--- to five trading days later.
+-- Computes earnings surprise and the corresponding 5-day stock return for the 
+-- last 20 quarters. Surprise is calculated as the percent difference between
+-- reported and estimated EPS. Stock return reflects the percentage change in 
+-- closing price from the report date to five trading days later. 
 
 WITH stock_prices_rows AS (
     SELECT
@@ -27,6 +26,7 @@ earnings_rows AS (
 )
 SELECT
     e.symbol,
+    c.Name AS name,
 	e.fiscal_quarter,
 	e.reported_date,
 	ROUND(e.surprise_pct, 2) AS surprise_pct,
@@ -39,6 +39,8 @@ JOIN
     stock_prices_rows AS s0 ON e.symbol=s0.symbol AND e.earnings_rn=s0.stock_rn
 JOIN
     stock_prices_rows AS s5 ON e.symbol=s5.symbol AND e.earnings_rn+5=s5.stock_rn
+JOIN
+   company_overviews AS c ON e.symbol=c.symbol
 WHERE
-    e.fiscal_quarter > '2018-01-01'
+    e.fiscal_quarter > DATE('now', 'start of month', '-60 months')
 	

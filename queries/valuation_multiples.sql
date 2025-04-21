@@ -5,7 +5,7 @@
 
 WITH dated_prices AS (
     SELECT
-        s.symbol,
+       s.symbol,
 	    s.date,
 	    s.close,
 	    i.netIncome,
@@ -14,19 +14,17 @@ WITH dated_prices AS (
 	    b.commonStockSharesOutstanding,
 	    ROW_NUMBER() OVER (PARTITION BY s.symbol, i.fiscal_date ORDER BY s.date) AS rn
     FROM stock_prices AS s
-    JOIN income_statements AS i ON s.symbol=i.symbol AND s.date >= i.fiscal_date
+    JOIN income_statements AS i ON s.symbol=i.symbol AND s.date > i.fiscal_date
     JOIN balance_sheets AS b ON s.symbol=b.symbol AND i.fiscal_date = b.fiscal_date
-    WHERE i.report_type == 'annual' AND b.report_type == 'annual'
+    WHERE i.report_type = 'annual' AND b.report_type = 'annual'
 )
 SELECT
-    symbol,
-	date AS price_date,
-	netIncome,
-	totalRevenue,
-	totalShareholderEquity,
-	commonStockSharesOutstanding,
-	ROUND(close / (netIncome * 1.0 / commonStockSharesOutstanding),2) AS PE,
-	ROUND(close / (totalRevenue * 1.0 / commonStockSharesOutstanding),2) AS PS,
-	ROUND(close / (totalShareholderEquity * 1.0 / commonStockSharesOutstanding),2) AS PB
-FROM dated_prices
-WHERE rn = 1
+    d.symbol,
+    c.Name AS company_name,
+	 d.date AS price_date,
+	 ROUND(d.close / (d.netIncome * 1.0 / d.commonStockSharesOutstanding),2) AS PE,
+	 ROUND(d.close / (d.totalRevenue * 1.0 / d.commonStockSharesOutstanding),2) AS PS,
+	 ROUND(d.close / (d.totalShareholderEquity * 1.0 / d.commonStockSharesOutstanding),2) AS PB
+FROM dated_prices AS d
+JOIN company_overviews AS c ON d.symbol = c.symbol
+WHERE d.rn = 1
