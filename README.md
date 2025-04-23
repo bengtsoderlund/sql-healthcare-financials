@@ -1,59 +1,63 @@
 # SQL and Python Financial Analysis: U.S. Healthcare Companies
 
 ## Overview
-This project demonstrates how to use Python to perform structured financial analysis on four major U.S. healthcare companies, with SQL integrated for querying the data. Python is used throughout the entire workflow—including fetching data via an API, building the SQL database, executing SQL queries automatically, and visualizing the results.
 
+This project demonstrates how Python and SQL can be combined to analyze the financial performance of major U.S. healthcare companies. It includes fetching real-world data from a public API, structuring it in a relational database, querying it with SQL, and visualizing insights with Python.
 
-## API Key and Environment Setup
-This project uses the Alpha Vantage API to fetch financial data. In order to run the data fetching scripts, an API key must be provided. If no key is found, the scripts will automatically fall back on pre-fetched data stored locally in the project.
+A companion Jupyter notebook walks through the full process and highlights key parts of the pipeline in a clear, readable format.
 
-Option 1: Provide Your Own API Key
-- Register for a free API key at: https://www.alphavantage.co/support/#api-key
-- Create a file named `.env` in the root directory:
-    - You can do this in Notepad by saving the file as ".env"
-- Add the following line to the file:
-    - ALPHA_VANTAGE_API_KEY=your_api_key_here
-- Save the file and close Notepad
+## Data and Environment Setup
 
-Option 2: Use Existing Data
-- If no `.env` file or API key is found, the Python scripts will automatically:
-    - Skip the data-fetching step
-    - Use the existing data stored in the `data/` folder
-- This allows you to run the project and explore the analysis without making any API calls
+Financial data is sourced from the [Alpha Vantage API](https://www.alphavantage.co/), which offers free access with usage limits (5 requests/min and 500/day). The project is designed to run with or without an API key.
 
+**Note:** The request limit restricts the number of companies that can be fetched in a single run using the free tier. However, the pipeline itself is fully scalable and can handle any number of companies—just adjust the list of tickers and re-run the workflow.
 
-## Key Features
-- Fetches stock prices, balance sheets, income statements, earnings, and company information via the Alpha Vantage API
-- Builds an SQL database to store and structure the data
-- Executes a series of SQL queries to analyze financial performance
-- Outputs results to CSV files
-- Visualizes key financial trends
+### Option 1: Use Your Own API Key
 
+1. Register for a free key: [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
+2. In the root folder, create a `.env` file and add: ALPHA_VANTAGE_API_KEY=your_api_key_here
+3. The scripts will detect the key and fetch up-to-date financial data.
+
+### Option 2: Use Pre-Fetched Data
+
+If no `.env` file or key is found:
+- The scripts will skip the API requests
+- Pre-fetched data in the `data/` folder will be used instead
+- All SQL queries and visualizations will still work
+
+## Project Workflow
+
+- **Fetch Financial Data**  
+Retrieve stock prices, balance sheets, income statements, earnings, and company overviews via the Alpha Vantage API (or use local fallback data).
+
+- **Build a SQL Database**  
+Load the fetched data into a structured SQLite database to enable efficient querying.
+
+- **Run Analytical SQL Queries**  
+Use SQL to examine valuation multiples, profitability ratios, stock volatility, post-earnings drift, earnings surprises, and monthly performance trends.
+
+- **Export Results**  
+Save the outputs of all queries as `.csv` files for transparency and reuse.
+
+- **Generate Visualizations**  
+Create data visualizations using `matplotlib` and `seaborn`, including charts for earnings reactions, valuation metrics, and more.
+
+- **Interactive Notebook**  
+A Jupyter notebook provides a guided, end-to-end walkthrough of the pipeline, combining data, SQL, and visualization in one place.
 
 ## Companies Analyzed
-- Johnson & Johnson (JNJ)
-- Pfizer (PFE)
-- United Healthcare (UNH)
+
+- Johnson & Johnson (JNJ)  
+- Pfizer (PFE)  
+- United Healthcare (UNH)  
 - Medtronic (MDT)
 
-
-## Data Source
-- [Alpha Vantage API](https://www.alphavantage.co/)
-- Note: The free API tier has a limit on the number of queries per minute and per day, which currently restricts the number of companies analyzed.
-- The project is fully scalable and can easily be extended to include additional companies and sectors by adjusting the list of tickers and re-running the pipeline.
-
-
-## Workflow Summary
-1. Use Python to fetch financial data via API  
-2. Store data in a structured SQL database  
-3. Run Python code to execute and save SQL queries analyzing valuation multiples, stock volatility, profitability ratios, price reactions to earnings surprises, and monthly performance trends.
-4. Visualize insights with Python charts  
-
-
 ## Possible Extensions
-- Expand to additional companies, sectors, or international markets
-- Incorporate additional financial metrics such as free cash flow, return on equity, or debt ratios
-- Automate earnings call sentiment analysis to complement price reaction insights
-- Integrate macroeconomic indicators (e.g., interest rates, CPI) for contextual analysis
-- Build interactive dashboards using Streamlit, Dash, or Tableau for easier exploration
+
+- Add more companies, industries, or countries  
+- Integrate additional financial metrics (e.g., free cash flow, debt ratios)  
+- Automate sentiment analysis of earnings calls  
+- Include macroeconomic indicators like CPI or interest rates  
+- Build interactive dashboards using Streamlit, Dash, or Tableau
+
 

@@ -1,5 +1,26 @@
+# Ignore API key
 .env
+
+# Keep empty folders
 /results/*
 !/results/.gitkeep
 /figures/*
 !/figures/.gitkeep
+/database/*
+!/database/.gitkeep
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# SQLite and DB files
+*.db
+*.sqlite
+*.sqlite3
+
+# OS clutter
+.DS_Store
+Thumbs.db
